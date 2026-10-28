@@ -1,0 +1,64 @@
+# Project data (relative to this repository's root)
+/data/
+/inputdata/
+/static/
+
+# Real environment files; keep sanitized examples available for version control
+.env
+.env.*
+*.env
+!.env.example
+!.env.sample
+!.env.template
+
+# Local credentials and secret configuration files
+.git-credentials
+.netrc
+_netrc
+.secrets/
+secrets/
+.credentials/
+credentials/
+credentials.json
+credentials.*.json
+credentials.yaml
+credentials.yml
+credentials.toml
+secrets.json
+secrets.*.json
+secrets.yaml
+secrets.yml
+secrets.toml
+token.json
+tokens.json
+client_secret*.json
+service-account*.json
+service_account*.json
+config.local.*
+
+# Private keys and certificate bundles
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa
+id_dsa
+id_ecdsa
+id_ed25519
+
+# Python caches, virtual environments, and generated package metadata
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local logs and operating system files
+*.log
+.DS_Store
+Thumbs.db
+Desktop.ini

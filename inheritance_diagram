@@ -1,0 +1,10 @@
+// Inheritance Diagram
+digraph {
+	BaseAgent [label=BaseAgent]
+	ReActAgent [label=ReActAgent]
+	ToolCallAgent [label=ToolCallAgent]
+	GISAgent [label=GISAgent]
+	BaseAgent -> ReActAgent
+	ReActAgent -> ToolCallAgent
+	ToolCallAgent -> GISAgent
+}
