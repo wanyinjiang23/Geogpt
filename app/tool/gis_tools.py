@@ -57,7 +57,7 @@ class QAchainTool(BaseTool):
     
     async def execute(self, question: str) -> str:
       # 文件路径
-        file_path = "C:/Users/ASUS/Desktop/jz.txt"
+        file_path = os.environ["GEOGPT_KNOWLEDGE_FILE"]
         # 加载最简单的文本文件，其中返回的data为一个Document对象列表
         loader = TextLoader(file_path, encoding='utf-8')
         data = loader.load()
@@ -69,8 +69,8 @@ class QAchainTool(BaseTool):
                 
 
         embeddings = OpenAIEmbeddings(
-            openai_api_key="sk-TT8DFlIRf13d249289c1T3BLbkFJE0A6cF589BeD464181de", 
-            base_url="https://api.ohmygpt.com/v1", 
+            openai_api_key=os.environ["GEOGPT_API_KEY"],
+            base_url=os.environ["GEOGPT_API_BASE"],
             model="text-embedding-ada-002")
 
 
@@ -81,8 +81,8 @@ class QAchainTool(BaseTool):
 
     
         llm = OpenAI(
-            openai_api_key="sk-TT8DFlIRf13d249289c1T3BLbkFJE0A6cF589BeD464181de", 
-            base_url="https://api.ohmygpt.com/v1", 
+            openai_api_key=os.environ["GEOGPT_API_KEY"],
+            base_url=os.environ["GEOGPT_API_BASE"],
             temperature=0.9)
         qa = RetrievalQA.from_chain_type(llm=llm, retriever=retriever)
         resultQA = qa.run(question)
@@ -836,7 +836,7 @@ class TiffOverlayTool(BaseTool):
         
         # 执行计算
         # 使用eval函数执行表达式，a代表第一个栅格，b代表第二个栅格
-        result = eval(expression, {'a': band1, 'b': band2, 'np': np})
+        raise ValueError("UNSAFE_EXPRESSION_DISABLED: use geosite.gis.raster_sum")
         
         # 写入输出文件
         profile = src1.profile

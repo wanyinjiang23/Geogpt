@@ -30,7 +30,7 @@ def buffer_analysis(gdf:gpd.GeoDataFrame, buffer_distance: float, output_path: s
      #检查数据的坐标系
     if gdf.crs is None:
         print("警告：数据没有定义坐标系，假设为 WGS84 (EPSG:4326)。")
-        gdf.set_crs(epsg=4326, inplace=True)
+        raise ValueError("MISSING_CRS: provide a verified CRS before buffering")
     elif gdf.crs != "EPSG:4326":
         print("警告：数据不是 WGS84 坐标系，正在转换为 WGS84。")
         gdf.to_crs(epsg=4326, inplace=True)
@@ -106,7 +106,7 @@ def chang_utm(gdf: gpd.GeoDataFrame):
     else:
         print("输入的要素类对象已经是投影坐标系，无需转换。")
         return gdf  
-def compute_buffer_intersection(input_shp1, input_shp2, output_intersect_shp:str=r"C:\Users\ASUS\Desktop\data\intersect.shp"):
+def compute_buffer_intersection(input_shp1, input_shp2, output_intersect_shp:str="outputs/legacy/intersect.shp"):
     """
     对输入的两个面要素文件进行叠加分析，输出相交区域的面要素。
 
@@ -254,7 +254,7 @@ def query_intersection(shp_point, shp_buffer,output_path):
         print("没有查询到结果，未生成文件")
 
     return output_path if not query_point.empty else None
-def compute_buffer_union(input_shp1, input_shp2, output_union_shp:str=r"C:\Users\ASUS\Desktop\data\union.shp"):
+def compute_buffer_union(input_shp1, input_shp2, output_union_shp:str="outputs/legacy/union.shp"):
 
     """
     计算两个面要素的并集（Union），合并为一个面要素文件。
@@ -289,7 +289,7 @@ def compute_buffer_union(input_shp1, input_shp2, output_union_shp:str=r"C:\Users
     smoothed_gdf.to_file(output_union_shp)
     print("相交区域已成功保存到：", output_union_shp)
     return output_union_shp
-def compute_buffer_difference(input_shp1, input_shp2, output_diff_shp: str = r"C:\Users\ASUS\Desktop\data\difference.shp"):
+def compute_buffer_difference(input_shp1, input_shp2, output_diff_shp: str = "outputs/legacy/difference.shp"):
     """
     计算两个面要素的差集（Difference），即从第一个面要素中擦除与第二个面要素重叠的部分。
 

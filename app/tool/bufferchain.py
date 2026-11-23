@@ -1,3 +1,5 @@
+from pathlib import Path
+import os
 from langchain_openai.chat_models.base import BaseChatOpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain, SequentialChain,TransformChain
@@ -10,8 +12,8 @@ def querybufferchain(input: str) -> str:
 
     llm = BaseChatOpenAI(
     model='deepseek-chat', 
-    openai_api_key='sk-4661c26f15534abd8e3eb7279c2687e3', 
-    openai_api_base='https://api.deepseek.com',
+    openai_api_key=os.environ["GEOGPT_API_KEY"],
+    openai_api_base=os.environ["GEOGPT_API_BASE"],
     max_tokens=1024,
     temperature = 0,
     )
@@ -55,32 +57,32 @@ def querybufferchain(input: str) -> str:
     def strong_query(inputs: Dict[str, Any]) -> Dict[str, Any]:
         input_str = inputs["geo_params"]     
         shp_files = [
-            r"C:\Users\ASUS\Desktop\GeoGPT\inputdata\factory.shp",
-            r"C:\Users\ASUS\Desktop\GeoGPT\inputdata\subway.shp",
-            r"C:\Users\ASUS\Desktop\GeoGPT\inputdata\supermarket.shp",
-            r"C:\Users\ASUS\Desktop\GeoGPT\inputdata\hotel.shp",
+            str(Path(__file__).resolve().parents[2] / "inputdata" / "factory.shp"),
+            str(Path(__file__).resolve().parents[2] / "inputdata" / "subway.shp"),
+            str(Path(__file__).resolve().parents[2] / "inputdata" / "supermarket.shp"),
+            str(Path(__file__).resolve().parents[2] / "inputdata" / "hotel.shp"),
         ]
         # 1. 按“和”字拆分字符串
         part1, part2 = input_str.split("和")  # 直接拆分成两部分
         if part2 == "工厂":
-            shp_point =gpd.read_file(r"C:\Users\ASUS\Desktop\GeoGPT\inputdata\factory.shp") 
+            shp_point =gpd.read_file(str(Path(__file__).resolve().parents[2] / "inputdata" / "factory.shp"))
         elif part2 == "地铁站":
-            shp_point = gpd.read_file(r"C:\Users\ASUS\Desktop\GeoGPT\inputdata\subway.shp")  
+            shp_point = gpd.read_file(str(Path(__file__).resolve().parents[2] / "inputdata" / "subway.shp"))
         elif part2 == "超市":
-            shp_point = gpd.read_file(r"C:\Users\ASUS\Desktop\GeoGPT\inputdata\supermarket.shp")  
+            shp_point = gpd.read_file(str(Path(__file__).resolve().parents[2] / "inputdata" / "supermarket.shp"))
         elif part2 == "宾馆":
-            shp_point = gpd.read_file(r"C:\Users\ASUS\Desktop\GeoGPT\inputdata\hotel.shp")  
+            shp_point = gpd.read_file(str(Path(__file__).resolve().parents[2] / "inputdata" / "hotel.shp"))
         """解析单个地点信息"""
         name = ''.join([c for c in part1 if not c.isdigit()])
         distance = int(''.join([c for c in part1 if c.isdigit()]))
         if  name == "工厂":
-            shp_point =gpd.read_file(r"C:\Users\ASUS\Desktop\GeoGPT\inputdata\factory.shp") 
+            shp_point =gpd.read_file(str(Path(__file__).resolve().parents[2] / "inputdata" / "factory.shp"))
         elif name == "地铁站":
-            shp_point = gpd.read_file(r"C:\Users\ASUS\Desktop\GeoGPT\inputdata\subway.shp")  
+            shp_point = gpd.read_file(str(Path(__file__).resolve().parents[2] / "inputdata" / "subway.shp"))
         elif name == "超市":
-            shp_point = gpd.read_file(r"C:\Users\ASUS\Desktop\GeoGPT\inputdata\supermarket.shp")  
+            shp_point = gpd.read_file(str(Path(__file__).resolve().parents[2] / "inputdata" / "supermarket.shp"))
         elif name == "宾馆":
-            shp_point = gpd.read_file(r"C:\Users\ASUS\Desktop\GeoGPT\inputdata\hotel.shp")  
+            shp_point = gpd.read_file(str(Path(__file__).resolve().parents[2] / "inputdata" / "hotel.shp"))
         else :
         # 查询"武昌火车站"
             buffer_path = query_point_by_name(shp_files, name)

@@ -62,3 +62,7 @@ env/
 .DS_Store
 Thumbs.db
 Desktop.ini
+
+# v2 isolated runtime artifacts
+/outputs/
+/evals/results/
