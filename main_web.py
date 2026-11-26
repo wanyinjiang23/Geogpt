@@ -1,5 +1,6 @@
-"""Compatibility entry for the local v2 UI.
-Legacy encrypted imports cannot execute. /chat now parses for confirmation.
-The arbitrary shell /open-folder route has been removed.
-"""
-from geosite.web import app
+"""Local web entry; the original GISAgent remains the execution backend."""
+from app.web.api import app
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main_web:app", host="127.0.0.1", port=8000)

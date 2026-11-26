@@ -37,8 +37,8 @@ class BaseAgent(BaseModel, ABC):
     duplicate_threshold: int = 2
 
     #验证LLM和Memory是否已经实例化
-    
-    @model_validator(mode="after")#用于模型验证的装饰器，用处？
+     
+    @model_validator(mode="after")#用于模型验证的装饰器，在模型的字段完成初步验证、模型实例创建之后，再执行自定义验证逻辑。  after表示作用于baseagent这个类创建后字段验证之后执行这个方法
 
     def initialize_agent(self) -> "BaseAgent":
         """如果没有提供初始化agent所需的默认参数"""
@@ -49,7 +49,7 @@ class BaseAgent(BaseModel, ABC):
         return self
 
 
-    @asynccontextmanager # 异步上下文管理器，用于状态转换 。装饰器？
+    @asynccontextmanager # 异步上下文管理器，用于Agent状态转换的装饰器
     async def state_context(self, new_state: AgentState):
         """
         用于安全代理状态转换的上下文管理器。
@@ -79,7 +79,6 @@ class BaseAgent(BaseModel, ABC):
         """
 
 #这里好像需要用到异步，可能这整个函数都需要被删掉
-
     def update_memory(
         self,
         role: ROLE_TYPE,  # type: ignore

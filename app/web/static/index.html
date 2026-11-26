@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GeoGPT · 对话</title>
+  <link rel="stylesheet" href="/assets/style.css">
+  <script src="/assets/app.js" defer></script>
+</head>
+<body>
+  <main class="app">
+    <header><div class="brand"><span class="logo">G</span><div><h1>GeoGPT</h1><p>地理空间智能助手</p></div></div><button id="new" class="secondary">新建对话</button></header>
+    <div class="statusbar"><span id="dot" class="dot"></span><span id="status" role="status">正在连接后端…</span></div>
+    <section id="messages" aria-label="对话记录" aria-live="polite"><div class="welcome"><span class="eyebrow">开始一次探索</span><h2>有什么地理问题需要帮忙？</h2><p>可以询问地理知识，或使用 data 目录中的数据进行空间分析。</p><div class="examples"><button data-prompt="请列出 data 目录中可用于分析的数据。">查看可用数据 ↗</button><button data-prompt="请解释缓冲区分析的用途。">了解缓冲区分析 ↗</button></div></div></section>
+    <details id="progress" hidden><summary>执行进度</summary><pre id="steps"></pre></details>
+    <div id="error" role="alert" hidden></div>
+    <form id="composer"><label class="sr-only" for="input">输入消息</label><textarea id="input" placeholder="输入你的问题或空间分析需求…" rows="3" maxlength="20000"></textarea><div class="toolbar"><span>Enter 发送 · Shift + Enter 换行</span><div><button id="stop" type="button" class="secondary" disabled>■ 暂停 / 停止</button><button id="send" type="submit" disabled>发送 ↑</button></div></div></form>
+    <footer>GeoGPT 会调用项目中的 GIS 工具处理请求，请核对分析结果。</footer>
+  </main>
+</body>
+</html>
